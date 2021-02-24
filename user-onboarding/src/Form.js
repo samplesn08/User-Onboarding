@@ -15,9 +15,11 @@ const initialValues = {
     tos: false, 
 }
 
+const userList = [];
+
 function Form() {
     const [form, setForm] = useState(initialValues)
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState(userList)
     const [errors, setErrors] = useState({
         name: '',
         email: '',
@@ -40,19 +42,22 @@ function Form() {
             [name]: value
         });
     }
-
-    const submit = (event) => {
-        event.preventDefault();
-        const newUser = { name: form.name.trim(), email: form.email.trim(), password: form.password.trim(), tos: form.tos };
+    const post = (newUser) => {
         axios.post('https://reqres.in/api/users', newUser)
         .then(res => {
-            console.log(res)
-            setUsers(users.concat(res.data))
-            setForm(initialValues)
+            // console.log(res.data)
+            setUsers(users.concat((res.data)))
+            console.log(users)
         })
         .catch(err => {
             console.log(err)
         })
+    }
+    const submit = (event) => {
+        event.preventDefault();
+        const newUser = { name: form.name.trim(), email: form.email.trim(), password: form.password.trim(), tos: form.tos };
+        post(newUser);
+        setForm(initialValues)
     }
 
     useEffect(() => {
@@ -88,9 +93,15 @@ function Form() {
             </form>
             <div>
                 <h2>New User:</h2>
-                Name: {users.name}<br></br>
-                E-mail: {users.email}<br></br>
-                Agree?: {users.tos}
+                {users.map((newPerson) => {
+                    return <div key={newPerson.id}>
+                        <h4>User:</h4>
+                        Name: {newPerson.name}<br></br>
+                        E-mail: {newPerson.email}<br></br>
+                        Password: {newPerson.password}
+                    </div>
+                })}
+                
             </div>
         </div>
     )
