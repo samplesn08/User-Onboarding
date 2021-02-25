@@ -69,26 +69,26 @@ function Form() {
             <form onSubmit={submit}>
                 <label>
                     Name:  
-                    <input type='text' onChange={change} name='name' value={form.name} placeholder='Full Name'></input>
+                    <input className ='name' type='text' onChange={change} name='name' value={form.name} placeholder='Full Name'></input>
                 </label><br></br>
                 <label>
                     E-mail:  
-                    <input type='text' onChange={change} name='email' value={form.email} placeholder='E-mail Address'></input>
+                    <input className='email' type='text' onChange={change} name='email' value={form.email} placeholder='E-mail Address'></input>
                 </label><br></br>
                 <label>
                     Password:  
-                    <input type='text' onChange={change} name='password' value={form.password} placeholder='Password'></input>
+                    <input className='password' type='text' onChange={change} name='password' value={form.password} placeholder='Password'></input>
                 </label><br></br>
                 <label>
                     Agree to Terms of Service?  
-                    <input type='checkbox' name='tos' checked={form.tos} onChange={change}></input>
+                    <input className='tos' type='checkbox' name='tos' checked={form.tos} onChange={change}></input>
                 </label><br></br>
-                <button disabled={disabled}>Submit</button>
-                <div style={{ color:'red' }}>
-                    <div>{errors.name}</div>
-                    <div>{errors.email}</div>
-                    <div>{errors.password}</div>
-                    <div>{errors.tos}</div>
+                <button className='submit' disabled={disabled}>Submit</button>
+                <div className='errors' style={{ color:'red' }}>
+                    <div className='nameError'>{errors.name}</div>
+                    <div className='emailError'>{errors.email}</div>
+                    <div className='passwordError'>{errors.password}</div>
+                    <div className='tosError'>{errors.tos}</div>
                 </div>
             </form>
             <div>
